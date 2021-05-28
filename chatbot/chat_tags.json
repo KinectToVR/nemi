@@ -1,0 +1,161 @@
+{
+    "alvr" : {
+        "new_users_only" : true,
+        "preferred_device" : "all",
+        "keywords" : [
+            "ALVR",
+            "SERVER ERROR (Code: -10)",
+            "server",
+            "-10",
+            "error",
+            "trackers not spawning",
+            "can't spawn trackers",
+            "no trackers",
+            "spawn"
+        ],
+        "messages" : {
+            "1" : {
+                "strings" : [
+                    "When using ALVR, by default it will hide every other SteamVR driver from the list and only register it's own.",
+                    "ALVR disables other SteamVR add-ons by default to avoid unexpected issues.",
+                    "Your SteamVR add-ons are hidden from the list by ALVR by default so it can load only it's own driver."
+                ],
+                "delay" : 5
+            },
+            "2" : {
+                "strings" : [
+                    "You can fix this by going to the ALVR settings window, then click on \"Installation\" on the left.\nYou'll see a list of your SteamVR drivers. Make sure you don't have any old instance of ALVR in the list, if so remove it. Then click on \"Register ALVR Driver\"",
+                    "The fix is easy. Go to the ALVR window, then on the list on the left, click on \"Installation\". You should see a list of your SteamVR add-ons. If there's an old entry for ALVR, remove it, then click on \"Register ALVR Driver\"."
+                ],
+                "delay" : 3
+            },
+            "3" : {
+                "strings" : [
+                    "Finally, restart ALVR completely, on the next launch it will load alongside your other drivers.",
+                    "You just have to restart ALVR now. When it loads again, it won't remove your own drivers from the list.",
+                    "And that's it! You just gotta reload ALVR for the changes to take effect and all your drivers to load alongside it."
+                ],
+                "delay" : 3
+            },
+            "4" : {
+                "strings" : [
+                    "If KinectToVR wasn't present in the driver list in ALVR, you're gonna have to edit your vrpaths file manually.\nIf it was there but you're still getting the error, you're gonna need to open SteamVR settings, go to Startup/Shutdown and then Manage Add-ons then unblock or enable KinectToVR and restart to apply changes.",
+                    "It's possible you might run into Error -10 again.\nIf the KinectToVR driver was present in the ALVR list, you can simply go to SteamVR settings, Startup/Shutdown then Manage Add-ons, and then enable/unblock KinectToVR and click on Restart SteamVR at the top of settings."
+                ],
+                "delay" : 0
+            }
+        }
+    },
+    "notgenuine" : {
+        "new_users_only" : true,
+        "preferred_device" : "kinectv1",
+        "keywords" : [
+            "freezing",
+            "freeze",
+            "stopping",
+            "stop",
+            "stopped",
+            "notgenuine",
+            "not genuine"
+        ],
+        "messages" : {
+            "1" : {
+                "strings" : [
+                    "If your tracking stops or freezes, this is usually caused by the E_NUI_NOTGENUINE error coming from the Kinect driver.",
+                    "Skeleton tracking freezing or stopping is usually caused by the error E_NUI_NOTGENUINE in the Kinect drivers.",
+                    "E_NUI_NOTGENUINE is usually what causes the tracking to suddenly stop. It's the only error that can happen in the middle of using the Kinect."
+                ],
+                "delay" : 3
+            },
+            "2" : {
+                "strings" : [
+                    "If it's just a one-time occurence, you can fix it by physically unplugging and replugging the Kinect's USB to the computer, then clicking on \"Reconnect Kinect\" once the Kinect status says Success.",
+                    "The main fix is to unplug and replug the Kinect's USB port from your computer, then wait for the Kinect status to say Success in KinectToVR, then finally click on \"Reconnect Kinect\".",
+                    "If it's your first time seeing this error, you can most likely get away with just unplugging and replugging the Kinect from the computer's USB port. Then waiting for the Kinect Status label to turn to Success and finally click on \"Reconnect Kinect\"."
+                ],
+                "delay" : 10
+            },
+            "3" : {
+                "strings" : [
+                    "There's also a possibility that the issue is more complex and you need to move the Kinect to a different physical USB controller (NOT port) or remove conflicting devices.",
+                    "If the issue re-occurs multiple times in a row, then you're gonna have to put the Kinect on a different USB controller chip or play around with other devices to reduce the bandwidth strain.",
+                    "If it's still happening, then you most likely need to move the Kinect into a different USB controller. It could also be an issue with conflicting devices."
+                ],
+                "delay" : 4
+            },
+            "4" : {
+                "strings" : [
+                    "You should download and run https://k2vr.tech/UsbTreeView.exe (Promise it's safe) and send a screenshot of it here (what's important is the list on the left) so a team member can look at it. *Or just use it yourself if you know how to work through it*",
+                    "I can't really help you myself further than this, so you should send a screenshot of https://k2vr.tech/UsbTreeView.exe running on your PC. Someone on the team can look at it and give you pointers then.",
+                    "Get this (https://k2vr.tech/UsbTreeView.exe) and make a screen capture of it and send it here so someone else can look at it with you. I'm not really equipped to deal with images."
+                ],
+                "delay" : 0
+            }
+        }
+    },
+    "notpowered" : {
+        "new_users_only" : true,
+        "preferred_device" : "kinectv1",
+        "keywords" : [
+            "notpowered",
+            "not powered",
+            "unpowered",
+            "not receiving power",
+            "not getting power"
+        ],
+        "messages" : {
+            "1" : {
+                "strings" : [
+                    "Seems you're getting a notpowered error. Worry not (mostly) your Kinect and adapter aren't dead (probably) and the fix is stupid simple!",
+                    "Oh, that's a E_NUI_NOTPOWERED. That can usually be fixed through device manager easily. There's a chance the adapter is just dead though.",
+                    "You can usually fix notpowered in like 30 seconds, but it's not guaranteed it'll work and your adapter might just be toast."
+                ],
+                "delay" : 5
+            },
+            "2" : {
+                "strings" : [
+                    "Open Device Manager (You can press <:windowskey:745394742002712637> + X then click on Device Manager) and expand Kinect for Windows. In a perfect Kinect setup, you would see 4 devices like this:",
+                    "Check in Device Manager for 4 devices in the Kinect for Windows category. (You can open it by pressing <:windowskey:745394742002712637> + X then clicking on Device Manager.) They'll look something like this:",
+                    "The Kinect should normally show four devices in Device Manager (You can open it by pressing <:windowskey:745394742002712637> + X then clicking on Device Manager) which would look like this:"
+                ],
+                "delay" : 1
+            },
+            "3" : {
+                "strings" : [
+                    "https://i.imgur.com/1VWGjjy.png"
+                ],
+                "delay" : 8
+            },
+            "4" : {
+                "strings" : [
+                    "Obviously you won't be seeing all 4 since you're running into an issue. Look for the **Other Devices** category. You should see a few devices in it, along the lines of \"Audios\", \"Xbox NUI Motor\" or \"Kinect for Windows Security Control\".",
+                    "You're definitely not going to see all four like that. Take a look for the **Other Devices** category. There should be stuff like \"Audios\", \"Xbox NUI Motor\" or \"Kinect for Windows Security Control\" in there.",
+                    "So, you don't have all 4 in there. That's normal, see if you can find the category **Other Devices** further in the list. It should contain stuff like \"Audios\", \"Xbox NUI Motor\" or \"Kinect for Windows Security Control\"."
+                ],
+                "delay" : 6
+            },
+            "5" : {
+                "strings" : [
+                    "If you do see those, right-click them one by one and click on \"Uninstall Device\". When you're done, unplug and replug the Kinect physically to the PC. You'll have to click \"Reconnect Kinect\" in KinectToVR once the status changes to Success.",
+                    "If you see them, right-click each one by one and click on \"Uninstall Device\". When you're done with that, unplug and replug the Kinect to the PC. You'll need to wait for the Kinect Status label in KinectToVR to change to Success, then click on \"Reconnect Kinect\"."
+                ],
+                "delay" : 2
+            },
+            "6" : {
+                "strings" : [
+                    "It's possible you might not see any of those, in which case, there's a good chance your adapter is dead. Sorry...",
+                    "There's a good chance that your power adapter is done for if you can't find anything besides \"Kinect for Windows Device\". I'm real sorry about that.",
+                    "Sorry for your loss if nothing shows up besides \"Kinect for Windows Device\". Cause that likely means your adapter gave up the ghost."
+                ],
+                "delay" : 8
+            },
+            "7" : {
+                "strings" : [
+                    "Even if you bought the adapter new, they're hastily made knock-offs in a factory somewhere in China, then dropshipped without any testing or QA, resulting in a lot of dead units from the factory.  Especially if you bought it from Amazon, seeing as so far, every dead adapter we've seen here came from Amazon. So I'd also recommend you buy your next adapter from a different site like Ebay or a local seller if possible. (You could also just try your luck with Amazon again.)",
+                    "The adapters are cheap knock-offs all produced in the same factory in China, and then sold under different brand names by dropshippers. There's no testing or QA so it's not that rare for them to be dead on arrival. Especially when adapters come from Amazon sellers. We've found that every dead adapter so far had come from Amazon. So I would recommend if possible buying from a different source next time. (I understand if you can't, just try with Amazon again)"
+                ],
+                "delay" : 0
+            }
+        }
+    }
+}

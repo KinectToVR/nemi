@@ -1,0 +1,42 @@
+# Nemi AI entries for KinectToVR help and support
+simplecontext:
+  not_virus:
+    keywords: virus,installer,detected,flagged,website,k2ex,k2vr,kinecttovr
+    answer: "K2EX Installer 1.5.6 gets falsely flagged as a virus because of the way it was made with Powershell, you can safely allow it or use the graphical installer currently in development."
+  xbone_bad:
+    keywords: about,xbox,one,kinect,bought,buy,get,xbone,v2,vive,index,valve,htc
+    answer: "Xbox One Kinect is almost impossible to use with the Vive and Index headsets because it confuses the lighthouse tracking. If you don't already have a Kinect, I'd recommend the Xbox 360 Kinect.  And the"
+  xbone_rotation:
+    keywords: spaz,spazzing,xbox,one,rotation,foot,broken,glitch,glitched,random,randomly
+    answer: "The Xbox One Kinect has broken foot rotation on 0.7.1 please update to 0.8 by using the installer on the website <https://k2vr.tech>"
+  kinect_bootloop:
+    keywords: restart,loop,reset,infinite,keeps,disconnect,connect
+    answer: "The main cause for the Kinect bootlooping is the mic being muted or disabled in Windows settings. Make sure it's enabled and then proceed with extra steps afterwards if that doesn't fix it."
+  vcredist:
+    keywords: VCRUNTIME_140,message,error,start,open,crash
+    answer: "That's happening because you're missing the Visual C++ Redistributables. https://aka.ms/vs/16/release/vc_redist.x64.exe"
+  onetracker:
+    keywords: one,tracker,only,see,theres,can,not,tracking
+    answer: "If you see only one tracker, that's actually all three of them but in one spot, this is caused by your Kinect skeleton tracking not working."
+  360better:
+    keywords: better,360,one,kinect,or
+    answer: "If you don't already have one, get the 360 Kinect. Exact same tracking quality, cheaper, less software and hardware problems."
+  vivehip:
+    keywords: turn,off,hip,tracker,vive,puck
+    answer: "You can't turn off the hip tracker and use a Vive tracker instead. It's technically possible with certain games, but definitely not VRChat which ignores tracker roles. Tracker spawning is currently hardcoded in KinectToVR, and will be for a long time. As well as the fact that mixing the tracking latency from a Kinect with the lack of latency of a Vive tracker will do some weird springy stuff."
+  trackersrotated:
+    keywords: rotated,trackers,off,angle,away,left,right,of,me
+    answer: "If after calibration trackers are facing the wrong way, redo your VR playspace (depends on headset) restart K2EX and recalibrate."
+  notrackers:
+    keywords: no,trackers,click,spawn,steamvr,dont,see
+    answer: "Check that KinectToVR is unlobkced and turned on in SteamVR Settings > Startup/Shutdown > Manage Add-ons."
+  adapters:
+    keywords: adapter,need,what,do,I,an
+    answer: "Both Kinwect models require an adapter to connect to your PC, searching online for kinect 360 adapter, or kinect one adapter, should give results. we recommend you don't buy from Amazon because we've seen a large quantity of them be dead on arrival."
+  sideways:
+    keywords: turn,sideways,away,facing,spin,around
+    answer: "You can turn around with skeleton flip in K2EX 0.8, facing 90degrees from the Kinect is still a challenge since it only has one point of view. We will never have a real fix for this since we're never doing multikinect."
+  multikinect:
+    keywords: multiple,two,same,time,together
+    answer: "We're never going to add multi-kinect support to KinectToVR because it's impractical in many ways and the trouble greatly outweights the benefits."
+  
