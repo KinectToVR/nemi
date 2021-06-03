@@ -185,12 +185,7 @@ You should send us a screenshot of the window so we can take a look at it and he
 async def alvr(ctx):
     await ctx.send("""
 When using ALVR, by default it will hide every other SteamVR driver from the list and only register it's own.
-
-To fix this:
-• Open the ALVR dashboard window, click on `Installation` on the left.
-• Look over the list of drivers and if any of them make reference to ALVR (For example, an older version) click `Remove` to take them out of the list.
-• Click `Register ALVR driver` under the list to add ALVR into SteamVR's driver list.
-• Restart ALVR entirely for changes to take effect, all your SteamVR drivers will be loaded alongside ALVR from now on.
+https://k2vr.tech/docs/alvr
 """)
 
 @bot.command(brief='kinect one bootlooping every 2-5 seconds')
@@ -862,10 +857,17 @@ over the sensor to reduce the overall light that goes into it, so your rugs appe
 # Current pose estimation technology is either imprecise or takes monumental amounts of GPU power to run at like 30fps.  When compared to the tiny CPU footprint of Kinect tracking, the incentive to create a full-body tracking method based on it is very slim.
 # """)
 
+@bot.command(brief='skeleton tracker positions')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def skeleton(ctx):
+    await ctx.send("https://i.imgur.com/FrE1E9D.png")
+
 @bot.command(brief='dev toolkit 1.8')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def toolkit(ctx):
-    await ctx.send("Install the developer toolkit (http://download.microsoft.com/download/D/0/6/D061A21C-3AF3-4571-8560-4010E96F0BC8/KinectDeveloperToolkit-v1.8.0-Setup.exe) then run `Kinect Developer Toolkit Browser` from the start menu, in the `tools tab`, __run__ `Kinect Explorer D2D`\n\nThis will allow you to see the color camera view from the Kinect with the skeleton tracking overlayed on top.")
+    await ctx.send("Install the developer toolkit (http://download.microsoft.com/download/D/0/6/D061A21C-3AF3-4571-8560-4010E96F0BC8/KinectDeveloperToolkit-v1.8.0-Setup.exe) then run `Kinect Developer Toolkit Browser` from the start menu, in the `tools tab`, __run__ `Kinect Explorer D2D`")
+    await ctx.send("https://i.imgur.com/SLk7Vm4.png")
+    await ctx.send("**Make sure to close KinectToVR first if it is running! Only one app can use the Kinect at a time.**")
 
 # @bot.command(brief='InputEmulator be like')
 # async def camera(ctx):
