@@ -24,12 +24,7 @@ async def on_ready():
 @bot.command(brief='Instructions for NUI_INSUFFICIENTBANDWIDTH')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def insufficientbandwidth(ctx):
-    await ctx.send("""
-If KinectToVR's Kinect status reports as `NUI_INSUFFICIENTBANDWIDTH` this can be caused by a few different things:
-• **Bad USB controller:** Try connecting the Kinect to another USB port, using https://k2vr.tech/UsbTreeView.exe can help you in this case.
-• **USB extensions:** Even if you may need it because of your room, try plugging the Kinect directly without your extension adn see if that fixes it. Extensions have a higher chance of working when using a USB 3.0 port.
-• **Management Service:** If the Kinect Management service encounters an error, it may cause this error, restarting your PC or the service itself should resolve it in this case.
-""")
+    await ctx.send("https://k2vr.tech/docs/insufficientbandwidth")
 
 @bot.command(brief='Instructions for NUI_NOTREADY')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -62,14 +57,7 @@ If you open Device Manager and `Xbox NUI Camera` appears under `Other Devices`. 
 @bot.command(brief='Instructions for NUI_NOTGENUINE')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def notgenuine(ctx):
-    await ctx.send("""
-If KinectToVR's Kinect status reports as `NUI_NOTGENUINE` this is usually a USB screw-up.
-**If it does it over and over, it's a bandwidth issue, change the USB port the Kinect is connected to until you end up on a different controller.**
-You should download https://k2vr.tech/UsbTreeView.exe to see which controller your Kinect is plugged into. You can send us a screenshot if you're confused and need help.
-If it's a one-time thing, just unplug and replug the USB connection to your PC.
-
-Finally, click `Reconnect Kinect` and the skeleton tracking will be working again.
-""")
+    await ctx.send("https://k2vr.tech/docs/notgenuine")
 
 @bot.command(brief='You cant use lens adapters')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -122,12 +110,12 @@ async def invite(ctx):
 @bot.command(brief='Alias of previous command')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def drivers(ctx):
-    await ctx.send('<:360kinect:710441033288122378> Driver for Xbox 360 Kinect: https://download.microsoft.com/download/E/1/D/E1DEC243-0389-4A23-87BF-F47DE869FC1A/KinectSDK-v1.8-Setup.exe\n\n<:xbonekinect:710441116130082856> Driver for Xbox One Kinect: https://download.microsoft.com/download/F/2/D/F2D1012E-3BC6-49C5-B8B3-5ACFF58AF7B8/KinectSDK-v2.0_1409-Setup.exe')
+    await ctx.send('<:kinect360:811234304809893918> Driver for Xbox 360 Kinect: https://download.microsoft.com/download/E/1/D/E1DEC243-0389-4A23-87BF-F47DE869FC1A/KinectSDK-v1.8-Setup.exe\n\n<:kinectone:811234236430286878> Driver for Xbox One Kinect: https://download.microsoft.com/download/F/2/D/F2D1012E-3BC6-49C5-B8B3-5ACFF58AF7B8/KinectSDK-v2.0_1409-Setup.exe')
 
 @bot.command(brief='Driver links for both Kinect models')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def driver(ctx):
-    await ctx.send('<:360kinect:710441033288122378> Driver for Xbox 360 Kinect: https://download.microsoft.com/download/E/1/D/E1DEC243-0389-4A23-87BF-F47DE869FC1A/KinectSDK-v1.8-Setup.exe\n\n<:xbonekinect:710441116130082856> Driver for Xbox One Kinect: https://download.microsoft.com/download/F/2/D/F2D1012E-3BC6-49C5-B8B3-5ACFF58AF7B8/KinectSDK-v2.0_1409-Setup.exe')
+    await ctx.send('<:kinect360:811234304809893918> Driver for Xbox 360 Kinect: https://download.microsoft.com/download/E/1/D/E1DEC243-0389-4A23-87BF-F47DE869FC1A/KinectSDK-v1.8-Setup.exe\n\n<:kinectone:811234236430286878> Driver for Xbox One Kinect: https://download.microsoft.com/download/F/2/D/F2D1012E-3BC6-49C5-B8B3-5ACFF58AF7B8/KinectSDK-v2.0_1409-Setup.exe')
 
 @bot.command(brief='Instructions for use with Beat Saber')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -263,7 +251,7 @@ You should send us a screenshot so we can take a look at it for you.
 @bot.command(brief='How to enable the SteamVR driver')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def enabledriver(ctx):
-    await ctx.send("https://raytracing-benchmarks.are-really.cool/3bRKZGc.gif")
+    await ctx.send("https://k2vr.tech/img/steamvr_enable_driver.mp4")
 
 @bot.command(brief='How to fix the Kinect thermistor by fucking cutting it off')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -345,17 +333,7 @@ You should avoid buying adapters from Amazon, as we've seen an alarming number o
 @bot.command(brief='info about Xbox One VS Xbox 360 Kinect')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def xbone(ctx):
-    await ctx.send("""
-**Why the Xbox One Kinect is bad:**
-__It's incompatible with base stations__
-Xbox One Kinect uses a time-of-flight sensor that sends out quick pulses of infrared light. Vive and Index base stations do the same, but the Kinect works on different timings, screwing up the headset and controller tracking with no easy way of fixing it.
-
-__It's probably incompatible with your whole PC__
-Your computer's chipset has a number of USB controllers. Each with a limited amount of bandwidth to share between connected devices. If you try to connect two devices that together require more bandwidth than the one controller can provide, like a VR headset and an Xbox One Kinect, one of them will crash.
-
-__It's just a 360 Kinect but worse__
-Both Kinect models use very different tracking technology, Yet still allow you to accomplish the same movements. The Xbox 360 Kinect only lacks in FOV and how close it can track but is otherwise equal to the Xbox One.
-""")
+    await ctx.send("https://k2vr.tech/docs/why-avoid-kinectv2")
 
 @bot.command(brief='Xbox One Kinect and USB controllers')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -471,10 +449,15 @@ https://raytracing-benchmarks.are-really.cool/5ybAcmZ.png
 # Please update to K2EX 0.8.0 at https://k2vr.tech
 # """)
 
-@bot.command(brief='KinectToVR calibration controls')
+# @bot.command(brief='KinectToVR calibration controls')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def controls(ctx):
+#     await ctx.send("https://k2vr.tech/assets/controls.png")
+
+@bot.command(brief='how to improve tracking')
 @commands.cooldown(1, 3, commands.BucketType.channel)
-async def controls(ctx):
-    await ctx.send("https://k2vr.tech/assets/controls.png")
+async def bettertracking(ctx):
+    await ctx.send("https://k2vr.tech/docs/bettertracking")
 
 @bot.command(brief='OVR Advanced Settings')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -545,25 +528,25 @@ Otherwise, uhhh, stop running WallpaperEngine and your 844 tabs of chrome, VRCha
 async def desktoplow(ctx):
     await ctx.send("https://raytracing-benchmarks.are-really.cool/8fgJn9m.png")
 
-@bot.command(brief='this assumes the kinect works fine')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def calibration(ctx):
-    await ctx.send("""
-__Manual Calibration:__
-• Spawn trackers
-• Click `Show/Hide Skeleton Tracking` to make sure the Kinect can see you.
-```Standing about 3 meters (9 feet) away will help with tracking.```
-• Turn off the preview once you've ensured it's working.
-• Click the checkbox labelled `Enable Manual Calibration` under the Begin Calibration button.
-• Click on `Begin Calibration`
-• Close out of the SteamVR dashboard by clicking outside of it.
-```Don't open Oculus Dash, Virtual Desktop or anything that could take control away from SteamVR. You should be in the empty void!```
-• Use the trackpads/thumbsticks on your VR controllers to move and rotate the trackers around.
-• Press the grip on your right controller to switch back and forth between position and rotation modes.
-**You can hold the left controller's grip to make more fine-tuned adjustments.**
-```If trackers aren't following you; E.g. walking forward makes the trackers walk to the left, use the left trackpad/thumbstick to rotate the trackers until they line up to your movements. Try taking a few steps to make sure.```
-• Hold triggers on **both controllers** to save and confirm.
-""")
+# @bot.command(brief='this assumes the kinect works fine')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def calibration(ctx):
+#     await ctx.send("""
+# __Manual Calibration:__
+# • Spawn trackers
+# • Click `Show/Hide Skeleton Tracking` to make sure the Kinect can see you.
+# ```Standing about 3 meters (9 feet) away will help with tracking.```
+# • Turn off the preview once you've ensured it's working.
+# • Click the checkbox labelled `Enable Manual Calibration` under the Begin Calibration button.
+# • Click on `Begin Calibration`
+# • Close out of the SteamVR dashboard by clicking outside of it.
+# ```Don't open Oculus Dash, Virtual Desktop or anything that could take control away from SteamVR. You should be in the empty void!```
+# • Use the trackpads/thumbsticks on your VR controllers to move and rotate the trackers around.
+# • Press the grip on your right controller to switch back and forth between position and rotation modes.
+# **You can hold the left controller's grip to make more fine-tuned adjustments.**
+# ```If trackers aren't following you; E.g. walking forward makes the trackers walk to the left, use the left trackpad/thumbstick to rotate the trackers until they line up to your movements. Try taking a few steps to make sure.```
+# • Hold triggers on **both controllers** to save and confirm.
+# """)
 
 # WEB COMMANDS WOOOO DOCS
 
@@ -587,30 +570,40 @@ async def wnotpowered(ctx):
 async def wcalibration(ctx):
     await ctx.send("https://k2vr.tech/docs/calibration")
 
-@bot.command(brief='How to fix Code -10')
+@bot.command(brief='(Web) Calibration instructions but without w')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def calibration(ctx):
+    await ctx.send("https://k2vr.tech/docs/calibration")
+
+# @bot.command(brief='How to fix Code -10')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def minus10(ctx):
+#     await ctx.send("""
+# __Fixing Code -10:__
+# Check in SteamVR settings > Startup/Shutdown > Manage Add-ons if KinectToVR is there and enabled, if it's blocked or disabled, enable it then restart SteamVR. (*SteamVR settings can be accessed by clicking the label in the top-left of the small status window.*)
+
+# **If it's not listed in Manage Add-ons,** __close SteamVR__ and open the file `%localappdata%\openvr\openvrpaths.vrpath` in Notepad or your text editor of choice.
+
+# In the section labelled `"external_drivers"` you want to make sure you have a line that links to the KinectToVR driver folder, in the default installation folder, that would be `"C:\\\\K2EX\\\\KinectToVR"`.
+
+# If you have other lines in your drivers list, make sure to add a comma to the last one that was there. And don't add a comma after your new line as it's the last item.
+
+# ` "one", "two", "three"  ` :white_check_mark: 
+# `                        `
+# ` "one", "two" "three"   ` :x:
+# `             ^          `
+# ` "one", "two", "three", ` :x:
+# `                      ^ `
+
+# Here's what my vrpaths file looks like for example: <https://pastebin.com/raw/dkw5rnWB>
+
+# After doing that, go back to the first step and make sure the driver is actually there when you launch SteamVR again.
+# """)
+
+@bot.command(brief='how to fix error -10')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def minus10(ctx):
-    await ctx.send("""
-__Fixing Code -10:__
-Check in SteamVR settings > Startup/Shutdown > Manage Add-ons if KinectToVR is there and enabled, if it's blocked or disabled, enable it then restart SteamVR. (*SteamVR settings can be accessed by clicking the label in the top-left of the small status window.*)
-
-**If it's not listed in Manage Add-ons,** __close SteamVR__ and open the file `%localappdata%\openvr\openvrpaths.vrpath` in Notepad or your text editor of choice.
-
-In the section labelled `"external_drivers"` you want to make sure you have a line that links to the KinectToVR driver folder, in the default installation folder, that would be `"C:\\\\K2EX\\\\KinectToVR"`.
-
-If you have other lines in your drivers list, make sure to add a comma to the last one that was there. And don't add a comma after your new line as it's the last item.
-
-` "one", "two", "three"  ` :white_check_mark: 
-`                        `
-` "one", "two" "three"   ` :x:
-`             ^          `
-` "one", "two", "three", ` :x:
-`                      ^ `
-
-Here's what my vrpaths file looks like for example: <https://pastebin.com/raw/dkw5rnWB>
-
-After doing that, go back to the first step and make sure the driver is actually there when you launch SteamVR again.
-""")
+    await ctx.send("https://k2vr.tech/docs/minus10")
 
 @bot.command(brief='alias of vcredist')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -655,6 +648,22 @@ async def sdkruntime(ctx):
 <:Devices_KinectV2:798503291959902208> __The Xbox One Kinect (Kinect for Windows V2) has two versions:__
 **• Kinect for Windows Runtime v2.0:** These drivers are enough to run both Xbox Kinect and Windows Kinect.
 **• Kinect for Windows SDK v2.0:** Includes Kinect Studio, and developer samples including Kinect Configuration Verifier.
+""")
+
+@bot.command(brief='openvrpaths funny')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def vrpath(ctx):
+    await ctx.send("""
+**If your PC has only one user account:**
+• Shutdown SteamVR if it's running.
+• Using the Windows run dialog or a file explorer, go to the `%localappdata%\openvr` folder
+• Delete the file `openvrpaths.vrpath` in the folder, it's the only file.```
+You should make a copy or simply rename the file if you have other SteamVR drivers/add-ons you want to easily restore aftwards.```• Launch SteamVR with your headset working so it generates an updated copy of the file.
+• Close SteamVR again and relaunch K2EX Installer.
+**If your PC has multiple accounts (Especially if you aren't administrator):**
+• Log into the administrator account, and run K2EX Installer.
+(The installation is global for all user accounts so it doesn't matter who uses it.)
+• Lob back into your main account and follow through the calibration instructions on the website.
 """)
 
 @bot.command(brief='usb controller explanation')
@@ -715,16 +724,16 @@ It uses the generated skeleton data and sends the position and rotation data of 
 SteamVR games see these trackers the same as real ones.
 """)
 
-@bot.command(brief='how 2 delet old drivur')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def deletedriver(ctx):
-    await ctx.send("""
-**This only matters if you followed the instructions from the old "copydrivers" command**
-In the eventuality that K2EX Installer didn't delete a previous version of the KinectToVR driver, here's how.
-Open Steam, go to the library, find SteamVR.
-Right-click it in the list, go to Manage then Browse local files.
-Double-click on drivers, and delete the folder named "KinectToVR"
-""")
+# @bot.command(brief='how 2 delet old drivur')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def deletedriver(ctx):
+#     await ctx.send("""
+# **This only matters if you followed the instructions from the old "copydrivers" command**
+# In the eventuality that K2EX Installer didn't delete a previous version of the KinectToVR driver, here's how.
+# Open Steam, go to the library, find SteamVR.
+# Right-click it in the list, go to Manage then Browse local files.
+# Double-click on drivers, and delete the folder named "KinectToVR"
+# """)
 
 @bot.command(brief='I dont trust that norton guy')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -742,19 +751,8 @@ https://www.youtube.com/watch?v=osqF50XhJEg
 @bot.command(brief='NO YOUR KINECT IS NOT BROKEN')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def notpowered(ctx):
-    await ctx.send("""
-**What to do when getting NUI_NOTPOWERED:**
-This error can either happen because of a driver error or because the adapter is faulty.
-First, check in device manager under "Kinect for Windows" that all of these devices show up.
-""")
-    await ctx.send("https://i.imgur.com/1VWGjjy.png")
-    await ctx.send("""
-If you only see "Kinect for Windows Device", check in the "Other Devices" category for devices such as `Xbox NUI Camera` or `Audios`. If they are present, right-click them and choose "Uninstall device".
+    await ctx.send("https://k2vr.tech/docs/notpowered")
 
-If you don't see any of those and you're sure your adapter is plugged into a working outlet. It's most likely faulty. (It's not rare for brand new adapters to be broken from the factory because they have no quality control.)
-
-**When you're done, unplug and replug the Kinect USB.**
-""")
 #     await ctx.send("""
 # • Unplug the Kinect from your computer
 # • Press <:windowskey:845064227633889290> + X
@@ -785,8 +783,7 @@ async def multikinect(ctx):
     await ctx.send("""
 __About using multiple Kinect sensors:__
 
-Driver4VR claims to have support for tracking with multiple sensors coming down the line.
-If it ever actually happens is a different story. As there are multiple technical factors at play that make this both nearly impossible, and impractical.
+There are multiple practical and technical factors at play that make implementing multi-kinect non-viable.
 
 • In the Kinect for Windows documentation, it is said here (<https://docs.microsoft.com/en-us/previous-versions/windows/kinect-1.8/dn188677(v=ieb.10)>) that while it's fully possible to do skeleton tracking from multiple Kinect sensors at once, pointing two of them at the same play area would cause infrared interference, and the tracking SDK does not provide an easy solution for merging the skeletons together.
 • The USB bandwidth requirement for a single device is already often a limiting factor and causes random disconnects for some users. Attempting to run two at once would be very difficult.
@@ -794,7 +791,7 @@ If it ever actually happens is a different story. As there are multiple technica
 • Combining the data from both sensors without making a mess is about as hard as rewriting the tracking code from scratch. At that point, you could create a much better and modern tracking tech based on the kinect depth map.
 
 TL;DR
-Multi-Kinect is likely not happening in Driver4VR.  It is never going to happen in KinectToVR, and you don't need more than one Kinect to turn around anyway.
+Support for multiple Kinect sensors will never happen.
 """)
 
 @bot.command(brief='Buying links for Renesas cards')
