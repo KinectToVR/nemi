@@ -523,6 +523,52 @@ In Windows Settings:
 Otherwise, uhhh, stop running WallpaperEngine and your 844 tabs of chrome, VRChat and VR itself needs lots of RAM. especially in highly populated worlds.
 """)
 
+@bot.command(brief='thanks microsoft!!')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def redistfix(ctx):
+    await ctx.send("""
+In the same folder where you downloaded K2EX Installer there should be a folder named `k2vr-installer`
+Download this file: https://aka.ms/vs/16/release/vc_redist.x64.exe
+And copy it to the `k2vr-installer` folder and say yes to overwrite.
+Run the installer again.
+""")
+
+@bot.command(brief='blazepose who?')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def posenet(ctx):
+    await ctx.send("""
+__Please don't use pose estimation frameworks for VR tracking!__
+
+Machine learning pose estimation, be it ThreeDPoseTracker, FrankMocap or BlazePose (Mediapipe) isn't in any way ready for realtime gaming use.
+
+**1. It requires a really clean view and video feed to work well**
+Unless you have a really high framerate (60fps or higher) camera with a clean, non-noisy image, and a brightly lit room with consistent lighting and your camera also has a fast shutter speed (no smearing between frames), all posenets will have a hard time coming with a clean and temporally consistent result. And it shows a lot when trying to line it up to the perfect sensor fusion tracking of a VR headset.
+
+**2. You need a NASA computer to run it, let alone in VR**
+Every current posenet available targets accuracy over speed, and when they target speed, it's not that much faster and the results suffer a lot. Machine learning is very demanding in resources, and will eat away most of your GPU memory and compute, leaving nothing to actually run VR at anything above 1 frame per minute.
+
+**3. There are much better solutions already out there**
+Be it SlimeVR, using a Kinect with owoTrack for the waist, StonX or Apriltag, there's a plethora of much less resource-heavy ways of getting yourself full-body without breaking the bank for Vive trackers and base stations. All of them will run on even the lowest end of PCVR rigs with no issues.
+
+In conclusion, please don't.
+""")
+
+@bot.command(brief='skeleton closet something idk')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def skeletonscale(ctx):
+    await ctx.send("""
+***DISCLAIMER!***
+The Kinect SDK skeleton does not scale it's proportions to your body. No matter how short or tall you are, the waist and feet trackers will always be the same distance apart.
+
+This is because Kinect was designed for gesture control for natural user interfaces (Hence the acronym NUI you may see across parts of the driver and SDK). And the goal was to allow the same gesture detection code to work for anyone.
+
+I implore that you try using the resulting calibration from K2EX in VRChat before saying it's "wrong" or "the legs are too short".
+
+As an extra important addendum to this, the offsets tab in K2EX is NOT there to fix this. If you touch anything there you will break your tracking. That tab is meant to make fine-tuning adjustments to the trackers for games that require it like Blade & Sorcery.
+
+While we could scale the skeleton in software to match it to the user's height, as it stands, the un-scaled skeleton already provides more than adequate tracking when setup correctly. So there are no plans to do this.
+""")
+
 @bot.command(brief='antialiasing bad!!')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def desktoplow(ctx):
