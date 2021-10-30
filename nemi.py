@@ -16,6 +16,7 @@ import re
 # import requests
 # import re
 # nemi = ChatBot('Nemi',database="database.db",trainer='chatterbot.trainers.ListTrainer')
+bot = commands.Bot(command_prefix=commands.when_mentioned_or('nemi '))
 
 token =  open("token", "r").read()
 
@@ -27,8 +28,6 @@ async def on_message(message):
     if message.channel.id == 738958686818533499:
         await message.channel.send(nemi.get_response(message.content))
     await bot.process_commands(message)
-
-bot = commands.Bot(command_prefix=commands.when_mentioned_or('nemi '))
 
 @bot.event
 async def on_ready():
