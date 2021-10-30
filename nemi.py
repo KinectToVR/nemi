@@ -10,12 +10,12 @@ import re
 #     nemi = json.load(f)
 # print(nemi)
 
-from chatterbot import ChatBot
-from chatterbot.trainers import ListTrainer
-from chatterbot.trainers import ChatterBotCorpusTrainer
-import requests
-import re
-nemi = ChatBot('Nemi',database="database.db",trainer='chatterbot.trainers.ListTrainer'
+# from chatterbot import ChatBot
+# from chatterbot.trainers import ListTrainer
+# from chatterbot.trainers import ChatterBotCorpusTrainer
+# import requests
+# import re
+# nemi = ChatBot('Nemi',database="database.db",trainer='chatterbot.trainers.ListTrainer')
 
 token =  open("token", "r").read()
 
