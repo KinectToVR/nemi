@@ -10,7 +10,23 @@ import re
 #     nemi = json.load(f)
 # print(nemi)
 
+from chatterbot import ChatBot
+from chatterbot.trainers import ListTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer
+import requests
+import re
+nemi = ChatBot('Nemi',database="database.db",trainer='chatterbot.trainers.ListTrainer'
+
 token =  open("token", "r").read()
+
+@bot.event
+async def on_message(message):
+    # we do not want the bot to reply to itself
+    if message.author == bot.user:
+        return
+    if message.channel.id == 738958686818533499:
+        await message.channel.send(nemi.get_response(message.content))
+    await bot.process_commands(message)
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('nemi '))
 
@@ -29,30 +45,7 @@ async def insufficientbandwidth(ctx):
 @bot.command(brief='Instructions for NUI_NOTREADY')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def notready(ctx):
-    await ctx.send("""
-If KinectToVR's Kinect status reports as `NUI_NOTREADY`
-0️⃣ **Try restarting your PC.**
-1️⃣ **Is the Kinect service running?**
-• Open the run dialog by pressing <:windowskey:845064227633889290> + R and typing/pasting `services.msc` to open the Services management panel.
-• Scroll down to `Kinect Management` and ensure the service is running.
-• Restart KinectToVR.
-
-2️⃣ **Are you having driver issues?**
-It's possible that your Kinect drivers might be broken due to various factors like Windows updates or changing PC hardware.
-• Try removing the Kinect drivers entirely from your system first.
-• Open the Windows settings app by pressing <:windowskey:845064227633889290> + Ɪ and look for the `Apps` section.
-• In the search box on the right, type "Kinect" and remove everything that isn't KinectToVR.
-• Restart your PC
-• Download the Kinect driver https://download.microsoft.com/download/E/1/D/E1DEC243-0389-4A23-87BF-F47DE869FC1A/KinectSDK-v1.8-Setup.exe and install it again.
-
-3️⃣ **Driver initialization errors**
-If you open Device Manager and `Xbox NUI Camera` appears under `Other Devices`. Then you're having an issue caused by Windows updates.
-• Open the run dialog by pressing <:windowskey:845064227633889290> + R and typing/pasting `rstrui` to open System Restore.
-• Click `Choose a different restore point` then click Next.
-• Check the box labelled `Show more restore points`
-• Pick a restore point that goes back a little. Or if the Kinect was working at a previous time. Pick a restore point from that time period.
-• You should verify what changes will be made by System Restore before applying changes. Your personal files will be unaffected.
-""")
+    await ctx.send("https://k2vr.tech/docs/notready")
 
 @bot.command(brief='Instructions for NUI_NOTGENUINE')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -121,7 +114,7 @@ async def driver(ctx):
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def beatsaber(ctx):
     await ctx.send("""
-**The latest version of BSCA is 5.0.3 available at <https://github.com/nicoco007/BeatSaberCustomAvatars/releases>** or it can be downloaded using ModAssistant.
+**The latest version of BSCA is 5.2.9 available at <https://github.com/nicoco007/BeatSaberCustomAvatars/releases>** or it can be downloaded using ModAssistant.
 
 When calibrating in Beat Saber, it's best to try the Full-Body Template avatar first.
 Turn off "Floor Height Adjust" and "Move Floor with Height Adjust". If the calibrate button is grayed out on an avatar, that means it's not compatible with this version.
@@ -243,6 +236,27 @@ Not all outlets are connected to the same circuit breaker. If you put too much o
 You should send us a screenshot so we can take a look at it for you.
 """)
 
+@bot.command(brief='how to setup owotrack')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def owotrack(ctx):
+    await ctx.send("""
+OwoTrack is another opensource app for using an Android phone or iPhone's compass, accelerometer and gyroscope to emulate the functionality of a waist tracker.
+It can be used in conjunction with KinectToVR to give you more responsive hip movement.```Some caveats:
+- Sitting down isn't that great unless you strap the phone to your chest instead of your waist.
+- Not all phones are compatible! Check your phone model on GSMArena and look in the "Sensors" section, you need at least a gyroscope and accelerometer. (Cheap budget tier phones have a tendency to forego these for a baked in screen rotation sensor.)
+- The iOS version isn't on the App Store, you must get it from a TestFlight beta testing link. (Not hard but important to mention)```
+You can get the app over on the Discord here <https://discord.gg/HPuth34e5E>
+
+Once you have that set up and working, you can disable KinectToVR's waist tracker by creating a file named `no-hip` in the folder `C:\K2EX`
+**You need to make the file in that folder even if that's not where you installed KinectToVR because it's currently hardcoded**
+
+If you don't know how to make a file without an extension, you can download the pre-made empty file here <#811496190712479774> (This channel is in the OwoTrack Discord)
+
+Restart SteamVR for changes to take effect.
+
+`Users on the a0.8.1-testing beta can simply go to the Trackers tab and click "Disable Waist Tracker" None of this file faffling needed.`
+""")
+
 # @bot.command(brief='How to copy the right driver folder')
 # async def copydrivers(ctx):
 #     await ctx.send("https://bad-me.me/BuXasdy.mp4")
@@ -262,6 +276,8 @@ async def thermistor(ctx):
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def psmove(ctx):
     await ctx.send("""
+***__PS Move is painful, it's incredibly complicated to setup, you will swear, there's like 3 people who can give you help, most of the issues are undocumented and while it does give a good experience, it's not worth the trouble for it's price.__***
+
 **What you need for a PlayStation Move setup:**
 __Item List:__
 • 3 PS Move controllers (Preferably model CECH-ZCM1U as it has a magnetometer to reduce rotation drift)
@@ -276,8 +292,6 @@ __General setup:__
 • Install K2EX and choose PlayStation Move as your device in the installer.
 • Launch PSMoveService, then K2EX, in the options tab assign each controller.
 • In the general tab, spawn trackers then follow through with manual calibration.
-
-**Do keep in mind, setting up PSMoveService is rather complicated, and it's support in K2EX isn't garanteed.**
 
 __Comparison:__
 Here's a video from Chris that shows PS Move (Left) V.S. Vive trackers (Right)
@@ -335,6 +349,11 @@ You should avoid buying adapters from Amazon, as we've seen an alarming number o
 async def xbone(ctx):
     await ctx.send("https://k2vr.tech/docs/why-avoid-kinectv2")
 
+@bot.command(brief='info about Xbox One VS Xbox 360 Kinect')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def xbonefix(ctx):
+    await ctx.send("https://k2vr.tech/docs/kinectv2-troubleshooting")
+
 @bot.command(brief='Xbox One Kinect and USB controllers')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def xbone_usb(ctx):
@@ -381,7 +400,8 @@ async def guardian(ctx):
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def playspace_rift(ctx):
     await ctx.send("""
-**How to reset your playspace orientation on Oculus Rift:**
+**How to reset your playspace orientation on Oculus Rift:**```In most cases you can just do "Change Floor Height" in the "Rift and Touch" menu, and it will prompt you to set the playspace direction without resetting your entire guardian.```
+
 • Open the Oculus desktop app, go to Devices > Oculus Rift and Touch > Reset Sensor Tracking
 **• When instructed to point the controller towards your monitor, point it at the Kinect instead.**
 • You will need to redraw your guardian after doing this.
@@ -389,7 +409,7 @@ async def playspace_rift(ctx):
 You can confirm the direction of your playspace in SteamVR by looking for the arrow on the floor.
 K2EX must be restarted after doing this for changes to take effect.
 You will need to recalibrate K2EX.
-https://raytracing-benchmarks.are-really.cool/5ybAcmZ.png
+https://raytracing-benchmarks.are-really.cool/5HyuYg8.png
 """)
 
 @bot.command(brief='How to reset playspace orientation on Rift S/Quest/Quest 2')
@@ -400,13 +420,14 @@ async def playspace_laguna(ctx):
 • For Rift S: Open the Oculus desktop app, go to Devices > Rift S and Touch > Guardian Setup
 • For Quest/Quest 2: If inside an app, open the Universal Menu by pressing the Oculus button, go to Settings > Guardian
 • Choose Roomscale Boundary.
+• **During each step make sure to face the edge of your playspace where the Kinect is**
 • Click "Confirm" to keep your current guardian boundary.
-• **When asked about surrounding objects,** look towards the Kinect and click confirm.
+`The "laguna" headsets can only put your playspace at 90degree angles, so you can't put your Kinect in the corner of the room.`
 
 You can confirm the direction of your playspace in SteamVR by looking for the arrow on the floor.
 K2EX must be restarted after doing this for changes to take effect.
 You will need to recalibrate K2EX.
-https://raytracing-benchmarks.are-really.cool/5ybAcmZ.png
+https://raytracing-benchmarks.are-really.cool/5HyuYg8.png
 """)
 
 @bot.command(brief='How to reset playspace orientation on SteamVR headsets')
@@ -422,7 +443,7 @@ async def playspace_lighthouse(ctx):
 You can confirm the direction of your playspace in SteamVR by looking for the arrow on the floor.
 K2EX must be restarted after doing this for changes to take effect.
 You will need to recalibrate K2EX.
-https://raytracing-benchmarks.are-really.cool/5ybAcmZ.png
+https://raytracing-benchmarks.are-really.cool/5HyuYg8.png
 """)
 
 @bot.command(brief='How to reset playspace orientation on Mixed Reality headsets')
@@ -439,7 +460,7 @@ async def playspace_wmr(ctx):
 You can confirm the direction of your playspace in SteamVR by looking for the arrow on the floor.
 K2EX must be restarted after doing this for changes to take effect.
 You will need to recalibrate K2EX.
-https://raytracing-benchmarks.are-really.cool/5ybAcmZ.png
+https://raytracing-benchmarks.are-really.cool/5HyuYg8.png
 """)
 
 # @bot.command(brief='One day it will be fixed')
@@ -458,6 +479,11 @@ https://raytracing-benchmarks.are-really.cool/5ybAcmZ.png
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def bettertracking(ctx):
     await ctx.send("https://k2vr.tech/docs/bettertracking")
+
+@bot.command(brief='autostart and tracker autospawn')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def autostart(ctx):
+    await ctx.send("https://k2vr.tech/docs/autostart")
 
 @bot.command(brief='OVR Advanced Settings')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -483,13 +509,25 @@ async def rant(ctx):
 @bot.command(brief='How to position the Kinect.')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def position(ctx):
-    await ctx.send("https://i.imgur.com/TbM7Y1V.png")
+    await ctx.send("https://k2vr.tech/docs/onboarding")
+
+@bot.command(brief='its just the onboarding page morty')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def instructions(ctx):
+    await ctx.send("https://k2vr.tech/docs/onboarding")
+
+@bot.command(brief='beta reddit chungus moment')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def beta(ctx):
     await ctx.send("""
-Put the Kinect sensor around chest to head height, pointing down at no more than 25 degrees. How close you can get will vary with the sensor's position and angle.
+**NO SUPPORT WILL BE PROVIDED FOR THE BETA. WE REFER TO IT AS 0.9 BUT THE BRANCH IS CALLED 0.8.1-TESTING AND THE WINDOW STILL SAYS 0.8.1**
 
-On average, you should stand at least 6ft (1.8m) away for the sensor to pick you up and to use automatic calibration. And 8ft (2.4m) away for the best tracking.
+- You must have an existing 0.8.1 installation from K2EX Installer.
+- Go to <https://github.com/KinectToVR/KinectToVR/releases/tag/a0.8.1-testing> scroll down and download both the ZIPs for the app and the driver.
+- Extract the files to `C:\K2EX` or wherever you installed KinectToVR. Say yes to overwrite all.
+- Optionally, rename `main_theme.theme` to just `.theme` so that the black see-through theme works.
 
-While your whole body should be visible for the best experience. It's possible to get away with tracking from the spine down.
+Visual Instructions: https://streamable.com/w3wlna
 """)
 
 # @bot.command(brief='OVRIE DLL Fix removal setps')
@@ -537,20 +575,27 @@ Run the installer again.
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def posenet(ctx):
     await ctx.send("""
-__Please don't use pose estimation frameworks for VR tracking!__
+Webcam body tracking is glitchy and jittery because of its very nature. There's nothing you can do about that.
 
-Machine learning pose estimation, be it ThreeDPoseTracker, FrankMocap or BlazePose (Mediapipe) isn't in any way ready for realtime gaming use.
+MediaPipe is based on TensorFlow, which has no way to run it on your GPU (graphics card) on Windows.  The CPU (processor) performance for machine learning is so bad, it can saturate a high-end 8-12 core chip and yet output less than 20fps.
 
-**1. It requires a really clean view and video feed to work well**
-Unless you have a really high framerate (60fps or higher) camera with a clean, non-noisy image, and a brightly lit room with consistent lighting and your camera also has a fast shutter speed (no smearing between frames), all posenets will have a hard time coming with a clean and temporally consistent result. And it shows a lot when trying to line it up to the perfect sensor fusion tracking of a VR headset.
+If you've got nothing more than a webcam, you've got a much better chance using markers (Use the AprilTags driver, not D4VR.). It is still CPU-bound, but it will actually let you play VR and won't randomly jump around.
+""")
 
-**2. You need a NASA computer to run it, let alone in VR**
-Every current posenet available targets accuracy over speed, and when they target speed, it's not that much faster and the results suffer a lot. Machine learning is very demanding in resources, and will eat away most of your GPU memory and compute, leaving nothing to actually run VR at anything above 1 frame per minute.
+@bot.command(brief='asmedia be like')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def usb(ctx):
+    await ctx.send("""
+USB ports and generations (2.0, 3.0, e.t.c.) aren't the whole story.
 
-**3. There are much better solutions already out there**
-Be it SlimeVR, using a Kinect with owoTrack for the waist, StonX or Apriltag, there's a plethora of much less resource-heavy ways of getting yourself full-body without breaking the bank for Vive trackers and base stations. All of them will run on even the lowest end of PCVR rigs with no issues.
+When connecting a USB device to your computer, each USB port is connected to a controller chip, which may be part of your motherboard, or integrated in your CPU.
 
-In conclusion, please don't.
+There are various brands and revisions of these controllers. Generally, all USB 2.0 controllers are pretty mature and will work well for any task. But with USB 3.0/3.1/3.2, the situation gets more complicated, generally you want to:
+
+Avoid: ASMedia, VIA, AMD pre-Ryzen and Fresco Logic controllers
+Look for: Renesas/NEC, AMD Ryzen and Intel 3.1 controllers
+
+Various brands will have better or worse handling and compatibility of USB devices, and will tolerate less or more bandwidth.
 """)
 
 @bot.command(brief='skeleton closet something idk')
