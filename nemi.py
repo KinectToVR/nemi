@@ -91,6 +91,11 @@ async def ping(ctx):
 async def site(ctx):
     await ctx.send('https://k2vr.tech')
 
+@bot.command(brief='mirror of site')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def website(ctx):
+    await ctx.send('https://k2vr.tech')
+
 @bot.command(brief='K.P. Glue')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def vrchat(ctx):
