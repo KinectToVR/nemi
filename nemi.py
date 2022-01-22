@@ -16,7 +16,7 @@ import re
 # import requests
 # import re
 # nemi = ChatBot('Nemi',database="database.db",trainer='chatterbot.trainers.ListTrainer')
-bot = commands.Bot(command_prefix=commands.when_mentioned_or('nemi '))
+bot = commands.Bot(command_prefix=commands.when_mentioned_or('nemi ', 'Nemi ', 'NEMI '), case_insensitive=True)
 
 token =  open("token", "r").read()
 
@@ -46,6 +46,16 @@ async def insufficientbandwidth(ctx):
 async def notready(ctx):
     await ctx.send("https://k2vr.tech/docs/notready")
 
+@bot.command(brief='yes its just noready')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def nukedrivers(ctx):
+    await ctx.send("""
+*When in doubt, nuke drivers.*
+
+Yes, the page claims to be for NUI_NOTREADY, but these instructions just explain how to completely purge the Kinect drivers and reinstall them.
+https://k2vr.tech/docs/notready
+""")
+
 @bot.command(brief='Instructions for NUI_NOTGENUINE')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def notgenuine(ctx):
@@ -65,12 +75,10 @@ Because the lens adapter causes the dot grid that the Kinect projects, and the I
 async def autocalib(ctx):
     await ctx.send("""
 **If automatic calibration is broken (trackers end up at a weird offset instead of lining up):**
-• Close K2EX if not already done.
-• Delete the folder %AppData%\KinectToVR\ which contains the configuration files for K2EX.
-• Reopen K2EX, and begin calibration again.
-• During each step of calibration, make sure the Kinect can see you from head to toe. (It's okay if it's a bit out of frame.)
-
-If it still doesn't work, you can resort to manual calibration.
+**1.** Simply try calibrating again, for best results, there should be ample distance between each position you stand in, and you should change height, crouch or squat.
+**2.** Try increasing the number of calibration points from the default of 3. Calibration will take longer but has a better chance of succeeding that way.
+**3.** Delete the configuration files from the button in the options tab then try calibrating again.
+**4.** If none of the above works, resort to manual calibration. Don't forget to click out of the SteamVR Dashboard! You won't be able to send inputs to K2EX otherwise.
 """)
 
 @bot.command(brief='Hahaha ping pong')
@@ -86,8 +94,20 @@ async def site(ctx):
 @bot.command(brief='K.P. Glue')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def vrchat(ctx):
-    await ctx.send('https://streamable.com/psg13e')
-    await ctx.send("YouTube version: <https://youtu.be/gvIJOUTCMGA>")
+    await ctx.send("""
+**My avatar is in a T-pose, how do I calibrate?**
+• Open your Quick Menu then go to settings and change your "User Real Height" until it matches your height. ```If doing that makes the avatar float or sink into the ground, that means either your VR headset height is set incorrectly or the avatar you're using doesn't have a good rig for full-body tracking.```• Click Calibrate, so that the spheres show up again.
+• Line up to the avatar. __YOU DON'T NEED TO LINE UP YOUR HANDS TO YOUR SIDE,__ only the white spheres representing your trackers matter. Your hands will be mapped based on wingspan, and your head will attach to the avatar's viewpoint.
+• Press BOTH triggers together.
+Video Version: <https://streamable.com/psg13e> (YouTube Version: <https://youtu.be/gvIJOUTCMGA>)
+
+**My avatar is crumpled into a ball on the ground! I don't have any full-body tracking at all!**
+First, make sure to turn off any mods if you have them. MelonLoader has the option to launch the game clean without removing any of your mods using the `--no-mods` launch argument.
+
+IKTweaks will almost never break, but it's better to try without. The real culprit for these types of issues is FBTSaver and the similar functionality in Emm.
+
+If you're still having issues without mods, try with a default avatar from the "Public" row. Not all avatars work for full-body, and if it's not your own, and you can't contact the creator, you're screwed.
+""")
 
 @bot.command(brief='Link to the calibration video')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -113,7 +133,7 @@ async def driver(ctx):
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def beatsaber(ctx):
     await ctx.send("""
-**The latest version of BSCA is 5.2.9 available at <https://github.com/nicoco007/BeatSaberCustomAvatars/releases>** or it can be downloaded using ModAssistant.
+**BeatSaberCustomAvatars can be downloaded from <https://github.com/nicoco007/BeatSaberCustomAvatars/releases>** or using ModAssistant.
 
 When calibrating in Beat Saber, it's best to try the Full-Body Template avatar first.
 Turn off "Floor Height Adjust" and "Move Floor with Height Adjust". If the calibrate button is grayed out on an avatar, that means it's not compatible with this version.
@@ -168,54 +188,66 @@ When using ALVR, by default it will hide every other SteamVR driver from the lis
 https://k2vr.tech/docs/alvr
 """)
 
-@bot.command(brief='kinect one bootlooping every 2-5 seconds')
-@commands.cooldown(1, 6, commands.BucketType.channel)
+@bot.command(brief='mirror of xbonefix')
+@commands.cooldown(1, 3, commands.BucketType.channel)
 async def xbone_loop5(ctx):
-    await ctx.send("""
-If your Kinect is disconnecting every 2-5 seconds:
-1️⃣ **Is the microphone muted or disabled?**
-As unintuitive as it may seem, removing access to the Kinect's audio will cause the SDK to restart the device indefinitely because it needs it to track you faster from the directional sound of your footsteps.
-• Open the run dialog by pressing <:windowskey:845064227633889290> + R and typing/pasting `control mmsys.cpl,,1` to open the recording devices control panel.
-• Look for the Kinect audio device, you shouldright-click the list and show disabled and disconnected devices.
-• If the device is disabled, enable it.
-• Open it's properties window, in the Levels tab, ensure that the microphone is NOT muted. You can set it to 0% if you're getting feedback loops.
-""")
-    await ctx.send("""
-2️⃣ **Is the Kinect lacking bandwidth?**
-Xbox One Kinect is a bandwidth-heavy device that needs to transmit a lot of data. Your computer's chipset might not be up to the task, and you'll need to divy up devices onto separate controllers.
-More info about this can be found by running the `@Nemi controller` command
-• Download and run https://k2vr.tech/UsbTreeView.exe to see what devices are connected to which controllers. You should send a screenshot of the window in chat so we can help you make sense of it.
-""")
-    await ctx.send("""
-3️⃣ **Check your adapter or cables.**
-It's possible that a bad connection somehwere between the Kinect and the PC could cause it to disconnect repeatedly. As well, a bad or broken adapter may cause similar issues. (Bad adapters have only come from Amazon so far. Anecdotal evidence would show that if it was bought elsewhere, it would be working.)
-• Ensure that every connection on the Kinect and adapter is firmly plugged in. The cable at the back of the Kinect is removeable!
-• If possible, try the Kinect on an Xbox One console. If possible without the adapter on a launch model to help pinpoint the issue.
-• Are you using any sort of USB extension? Try without even if they're needed for your room setup.
-""")
-    await ctx.send("""
-4️⃣ **Are you having driver issues?**
-It's possible that your Kinect drivers might be broken due to various factors like Windows updates or changing PC hardware.
-• Try removing the Kinect drivers entirely from your system first.
-• Open the Windows settings app by pressing <:windowskey:845064227633889290> + Ɪ and look for the `Apps` section.
-• In the search box on the right, type "Kinect" and remove everything that isn't KinectToVR.
-• Restart your PC
-• Download the Kinect driver https://download.microsoft.com/download/F/2/D/F2D1012E-3BC6-49C5-B8B3-5ACFF58AF7B8/KinectSDK-v2.0_1409-Setup.exe and install it again.
-• If this doesn't work, you can also try redoing these steps, but instead of installing the 2.0 (1409) driver you can let Windows 10 install the 2.2 (1905) driver.
-""")
+    await ctx.send("https://k2vr.tech/docs/kinectv2-troubleshooting")
 
-@bot.command(brief='kinect one bootlooping every 10-15 seconds')
-@commands.cooldown(1, 6, commands.BucketType.channel)
+@bot.command(brief='mirror of xbonefix')
+@commands.cooldown(1, 3, commands.BucketType.channel)
 async def xbone_loop15(ctx):
-    await ctx.send("""
-If your Kinect is disconnecting every 10-15 seconds:
-1️⃣ **Is the Kinect's temperature sensor going bad?**
-The Kinect contains a temperatur sensor to monitor it's own state. If it gets too hot, it will shut down the device. Which the SDK will try to bring back up right after.
-After a few years, this sensor has a tendency to go bad. If it does, it will always think the Kinect is boiling hot no matter what!
-Luckily, there's a solution, we can simply cut two wires, and defuse the Kinect bomb.
-• Open this YouTube video <https://www.youtube.com/watch?v=BoRK3jJVMLM> and follow the instructions.
-• You will need a Torx T2 screwdriver or scrwedriver bit.
-""")
+    await ctx.send("https://k2vr.tech/docs/kinectv2-troubleshooting")
+
+# @bot.command(brief='kinect one bootlooping every 2-5 seconds')
+# @commands.cooldown(1, 6, commands.BucketType.channel)
+# async def xbone_loop5(ctx):
+#     await ctx.send("""
+# If your Kinect is disconnecting every 2-5 seconds:
+# 1️⃣ **Is the microphone muted or disabled?**
+# As unintuitive as it may seem, removing access to the Kinect's audio will cause the SDK to restart the device indefinitely because it needs it to track you faster from the directional sound of your footsteps.
+# • Open the run dialog by pressing <:windowskey:845064227633889290> + R and typing/pasting `control mmsys.cpl,,1` to open the recording devices control panel.
+# • Look for the Kinect audio device, you shouldright-click the list and show disabled and disconnected devices.
+# • If the device is disabled, enable it.
+# • Open it's properties window, in the Levels tab, ensure that the microphone is NOT muted. You can set it to 0% if you're getting feedback loops.
+# """)
+#     await ctx.send("""
+# 2️⃣ **Is the Kinect lacking bandwidth?**
+# Xbox One Kinect is a bandwidth-heavy device that needs to transmit a lot of data. Your computer's chipset might not be up to the task, and you'll need to divy up devices onto separate controllers.
+# More info about this can be found by running the `@Nemi controller` command
+# • Download and run https://k2vr.tech/UsbTreeView.exe to see what devices are connected to which controllers. You should send a screenshot of the window in chat so we can help you make sense of it.
+# """)
+#     await ctx.send("""
+# 3️⃣ **Check your adapter or cables.**
+# It's possible that a bad connection somehwere between the Kinect and the PC could cause it to disconnect repeatedly. As well, a bad or broken adapter may cause similar issues. (Bad adapters have only come from Amazon so far. Anecdotal evidence would show that if it was bought elsewhere, it would be working.)
+# • Ensure that every connection on the Kinect and adapter is firmly plugged in. The cable at the back of the Kinect is removeable!
+# • If possible, try the Kinect on an Xbox One console. If possible without the adapter on a launch model to help pinpoint the issue.
+# • Are you using any sort of USB extension? Try without even if they're needed for your room setup.
+# """)
+#     await ctx.send("""
+# 4️⃣ **Are you having driver issues?**
+# It's possible that your Kinect drivers might be broken due to various factors like Windows updates or changing PC hardware.
+# • Try removing the Kinect drivers entirely from your system first.
+# • Open the Windows settings app by pressing <:windowskey:845064227633889290> + Ɪ and look for the `Apps` section.
+# • In the search box on the right, type "Kinect" and remove everything that isn't KinectToVR.
+# • Restart your PC
+# • Download the Kinect driver https://download.microsoft.com/download/F/2/D/F2D1012E-3BC6-49C5-B8B3-5ACFF58AF7B8/KinectSDK-v2.0_1409-Setup.exe and install it again.
+# • If this doesn't work, you can also try redoing these steps, but instead of installing the 2.0 (1409) driver you can let Windows 10 install the 2.2 (1905) driver.
+# """)
+
+# @bot.command(brief='kinect one bootlooping every 10-15 seconds')
+# @commands.cooldown(1, 6, commands.BucketType.channel)
+# async def xbone_loop15(ctx):
+#     await ctx.send("""
+# If your Kinect is disconnecting every 10-15 seconds:
+# 1️⃣ **Is the Kinect's temperature sensor going bad?**
+# The Kinect contains a temperatur sensor to monitor it's own state. If it gets too hot, it will shut down the device. Which the SDK will try to bring back up right after.
+# After a few years, this sensor has a tendency to go bad. If it does, it will always think the Kinect is boiling hot no matter what!
+# Luckily, there's a solution, we can simply cut two wires, and defuse the Kinect bomb.
+# • Open this YouTube video <https://www.youtube.com/watch?v=BoRK3jJVMLM> and follow the instructions.
+# • You will need a Torx T2 screwdriver or scrwedriver bit.
+# """)
+
+
 
 @bot.command(brief='alias of usbtreeview')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -246,14 +278,7 @@ It can be used in conjunction with KinectToVR to give you more responsive hip mo
 - The iOS version isn't on the App Store, you must get it from a TestFlight beta testing link. (Not hard but important to mention)```
 You can get the app over on the Discord here <https://discord.gg/HPuth34e5E>
 
-Once you have that set up and working, you can disable KinectToVR's waist tracker by creating a file named `no-hip` in the folder `C:\K2EX`
-**You need to make the file in that folder even if that's not where you installed KinectToVR because it's currently hardcoded**
-
-If you don't know how to make a file without an extension, you can download the pre-made empty file here <#811496190712479774> (This channel is in the OwoTrack Discord)
-
-Restart SteamVR for changes to take effect.
-
-`Users on the a0.8.1-testing beta can simply go to the Trackers tab and click "Disable Waist Tracker" None of this file faffling needed.`
+Once you have that set up and working, you can disable KinectToVR's waist tracker by going to the Trackers tab and clicking "Disable Waist Tracker". You will be asked to restart SteamVR.`
 """)
 
 # @bot.command(brief='How to copy the right driver folder')
@@ -275,26 +300,16 @@ async def thermistor(ctx):
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def psmove(ctx):
     await ctx.send("""
-***__PS Move is painful, it's incredibly complicated to setup, you will swear, there's like 3 people who can give you help, most of the issues are undocumented and while it does give a good experience, it's not worth the trouble for it's price.__***
+**Using PlayStation Move controllers and cameras with KinectToVR:**
+This setup only works with PS Eyes and PSMoveService, you can't track the Move controllers with the Kinect.
 
-**What you need for a PlayStation Move setup:**
-__Item List:__
-• 3 PS Move controllers (Preferably model CECH-ZCM1U as it has a magnetometer to reduce rotation drift)
-• 3-4 PS Eye cameras (3 may do for smaller rooms, 2 bare minimum)
-• Bluetooth adapter to pair the controllers
-• USB PCIe add-in card to run the cameras
-• USB extension cords to put your cameras in the corners of the room
-The entire setup depending on your region and ability to purchase locally should run you between 150 and 200 dollars.
+For the setup, you'll want 2 or 3 PS Move controllers (if 2, you need to use OwoTrack for your waist), and at least 3 PS Eye cameras.
 
-__General setup:__
-• Install and configure PSMoveService with your controllers and cameras, following tutorials online for calibration.
-• Install K2EX and choose PlayStation Move as your device in the installer.
-• Launch PSMoveService, then K2EX, in the options tab assign each controller.
-• In the general tab, spawn trackers then follow through with manual calibration.
+For general setup, we recommend this video by Cai VR: <https://www.youtube.com/watch?v=HQSeSZWSZ58>
 
-__Comparison:__
-Here's a video from Chris that shows PS Move (Left) V.S. Vive trackers (Right)
-<https://qwertyuiop.nz/Till%20I%20Find%20You.mp4>
+Ignore the part about downloading the old version of PSMoveService, and the part about using PSMoveAPI to pair controllers. **You should download the newer fork: PSMoveServiceEX, by Externet, instead.**
+
+Here's a link to that: <https://github.com/Timocop/PSMoveServiceEx>
 """)
 
 @bot.command(brief='Possibly confusing terms')
@@ -310,6 +325,33 @@ async def glossary(ctx):
 **OVRAS:** OpenVR Advanced Settings
 **OVRIE:** OpenVR-InputEmulator
 **ORVSC:** OpenVR-SpaceCalibrator
+""")
+
+@bot.command(brief='funny k2ex white screen crash')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def whitescreen(ctx):
+    await ctx.send("""
+**K2EX shows a white window then crashes, what do I do?**
+You need to have your headset plugged in/connected and SteamVR needs to be running, as in, __rendering to the headset, you should see the dashboard and the mountains in the distance__ before starting KinectToVR.
+If you've done all that and K2EX still crashes on startup, first try rebooting your computer. We'll go over additional troubleshooting if it's not fixed then.
+""")
+
+@bot.command(brief='changing kinect angle')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def angle(ctx):
+    await ctx.send("""
+You can change the angle of the Kinect just by pushing it. The Xbox 360 Kinect does have a motor, but it's not used by K2EX. The gears are solid enough that you can snap it by hand without fear of breaking it.
+
+If you must insist on using the motor, Install the developer toolkit (http://download.microsoft.com/download/D/0/6/D061A21C-3AF3-4571-8560-4010E96F0BC8/KinectDeveloperToolkit-v1.8.0-Setup.exe) then run `Kinect Developer Toolkit Browser` from the start menu, in the `tools tab`, __run__ `Kinect Explorer D2D`
+""")
+
+@bot.command(brief='Jeffy B. aint got nothin on deez')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def amazon(ctx):
+    await ctx.send("""
+You can change the angle of the Kinect just by pushing it. The Xbox 360 Kinect does have a motor, but it's not used by K2EX. The gears are solid enough that you can snap it by hand without fear of breaking it.
+
+If you must insist on using the motor, Install the developer toolkit (http://download.microsoft.com/download/D/0/6/D061A21C-3AF3-4571-8560-4010E96F0BC8/KinectDeveloperToolkit-v1.8.0-Setup.exe) then run `Kinect Developer Toolkit Browser` from the start menu, in the `tools tab`, __run__ `Kinect Explorer D2D`
 """)
 
 # @bot.command(brief='How to disable USB Selective Suspend')
@@ -353,25 +395,25 @@ async def xbone(ctx):
 async def xbonefix(ctx):
     await ctx.send("https://k2vr.tech/docs/kinectv2-troubleshooting")
 
-@bot.command(brief='Xbox One Kinect and USB controllers')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def xbone_usb(ctx):
-    await ctx.send("""
-**Xbox One Kinect is very demanding when it comes to USB bandwidth:**
-Your computer's chipset has a number of USB controllers. Each with a limited amount of bandwidth to share between connected devices. If you try to connect two devices that together require more bandwidth than the one controller can provide, like a VR headset and an Xbox One Kinect, one of them will crash.
+# @bot.command(brief='Xbox One Kinect and USB controllers')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def xbone_usb(ctx):
+#     await ctx.send("""
+# **Xbox One Kinect is very demanding when it comes to USB bandwidth:**
+# Your computer's chipset has a number of USB controllers. Each with a limited amount of bandwidth to share between connected devices. If you try to connect two devices that together require more bandwidth than the one controller can provide, like a VR headset and an Xbox One Kinect, one of them will crash.
 
-You can check out your USB controllers using this tool: https://k2vr.tech/UsbTreeView.exe
-For it to work, you need at least two controllers capable of USB 3.0 or better.
-Also, ASMedia controllers are incompatible with the Kinect.
-""")
+# You can check out your USB controllers using this tool: https://k2vr.tech/UsbTreeView.exe
+# For it to work, you need at least two controllers capable of USB 3.0 or better.
+# Also, ASMedia controllers are incompatible with the Kinect.
+# """)
 
-@bot.command(brief='Diet Coke Xbox 360 Kinect more like')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def xbone_tracking(ctx):
-    await ctx.send("""
-**Xbox 360 Kinect is cheaper and gives the same tracking:**
-Both Kinect models use very different tracking technology, Yet still allow you to accomplish the same movements. The Xbox 360 Kinect only lacks in FOV and how close it can track but is otherwise equal to the Xbox One.
-""")
+# @bot.command(brief='Diet Coke Xbox 360 Kinect more like')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def xbone_tracking(ctx):
+#     await ctx.send("""
+# **Xbox 360 Kinect is cheaper and gives the same tracking:**
+# Both Kinect models use very different tracking technology, Yet still allow you to accomplish the same movements. The Xbox 360 Kinect only lacks in FOV and how close it can track but is otherwise equal to the Xbox One.
+# """)
 
 @bot.command(brief='Xbox One Kinect and base stations')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -504,7 +546,6 @@ async def tupper(ctx):
 async def rant(ctx):
     await ctx.send("https://www.youtube.com/watch?v=UiZKgHJHLT4")
 
-
 @bot.command(brief='How to position the Kinect.')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def position(ctx):
@@ -515,19 +556,19 @@ async def position(ctx):
 async def instructions(ctx):
     await ctx.send("https://k2vr.tech/docs/onboarding")
 
-@bot.command(brief='beta reddit chungus moment')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def beta(ctx):
-    await ctx.send("""
-**NO SUPPORT WILL BE PROVIDED FOR THE BETA. WE REFER TO IT AS 0.9 BUT THE BRANCH IS CALLED 0.8.1-TESTING AND THE WINDOW STILL SAYS 0.8.1**
+# @bot.command(brief='beta reddit chungus moment')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def beta(ctx):
+#     await ctx.send("""
+# **NO SUPPORT WILL BE PROVIDED FOR THE BETA. WE REFER TO IT AS 0.9 BUT THE BRANCH IS CALLED 0.8.1-TESTING AND THE WINDOW STILL SAYS 0.8.1**
 
-- You must have an existing 0.8.1 installation from K2EX Installer.
-- Go to <https://github.com/KinectToVR/KinectToVR/releases/tag/a0.8.1-testing> scroll down and download both the ZIPs for the app and the driver.
-- Extract the files to `C:\K2EX` or wherever you installed KinectToVR. Say yes to overwrite all.
-- Optionally, rename `main_theme.theme` to just `.theme` so that the black see-through theme works.
+# - You must have an existing 0.8.1 installation from K2EX Installer.
+# - Go to <https://github.com/KinectToVR/KinectToVR/releases/tag/a0.8.1-testing> scroll down and download both the ZIPs for the app and the driver.
+# - Extract the files to `C:\K2EX` or wherever you installed KinectToVR. Say yes to overwrite all.
+# - Optionally, rename `main_theme.theme` to just `.theme` so that the black see-through theme works.
 
-Visual Instructions: https://streamable.com/w3wlna
-""")
+# Visual Instructions: https://streamable.com/w3wlna
+# """)
 
 # @bot.command(brief='OVRIE DLL Fix removal setps')
 # async def ovrie(ctx):
@@ -613,10 +654,10 @@ As an extra important addendum to this, the offsets tab in K2EX is NOT there to 
 While we could scale the skeleton in software to match it to the user's height, as it stands, the un-scaled skeleton already provides more than adequate tracking when setup correctly. So there are no plans to do this.
 """)
 
-@bot.command(brief='antialiasing bad!!')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def desktoplow(ctx):
-    await ctx.send("https://raytracing-benchmarks.are-really.cool/8fgJn9m.png")
+# @bot.command(brief='antialiasing bad!!')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def desktoplow(ctx):
+#     await ctx.send("https://raytracing-benchmarks.are-really.cool/8fgJn9m.png")
 
 # @bot.command(brief='this assumes the kinect works fine')
 # @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -640,25 +681,25 @@ async def desktoplow(ctx):
 
 # WEB COMMANDS WOOOO DOCS
 
-@bot.command(brief='(Web) How to fix Code -10')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def wminus10(ctx):
-    await ctx.send("https://k2vr.tech/docs/minus10")
+# @bot.command(brief='(Web) How to fix Code -10')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def wminus10(ctx):
+#     await ctx.send("https://k2vr.tech/docs/minus10")
 
-@bot.command(brief='(Web) nui_notgenuine fix')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def wnotgenuine(ctx):
-    await ctx.send("https://k2vr.tech/docs/notgenuine")
+# @bot.command(brief='(Web) nui_notgenuine fix')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def wnotgenuine(ctx):
+#     await ctx.send("https://k2vr.tech/docs/notgenuine")
     
-@bot.command(brief='(Web) nui_notpowered fix')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def wnotpowered(ctx):
-    await ctx.send("https://k2vr.tech/docs/notpowered")
+# @bot.command(brief='(Web) nui_notpowered fix')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def wnotpowered(ctx):
+#     await ctx.send("https://k2vr.tech/docs/notpowered")
 
-@bot.command(brief='(Web) Calibration instructions')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def wcalibration(ctx):
-    await ctx.send("https://k2vr.tech/docs/calibration")
+# @bot.command(brief='(Web) Calibration instructions')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def wcalibration(ctx):
+#     await ctx.send("https://k2vr.tech/docs/calibration")
 
 @bot.command(brief='(Web) Calibration instructions but without w')
 @commands.cooldown(1, 3, commands.BucketType.channel)
@@ -894,20 +935,20 @@ Amazon US: <https://www.amazon.com/SEDNA-Express-Adapter-Renesas-720201/dp/B00VV
 Similar cards can be found elsewhere, but make sure they have an NEC/Renesas controller on them.
 """)
 
-@bot.command(brief='How to fix Kinect One FINALLY')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def tracking(ctx):
-    await ctx.send("""
-__How to fix your god damn Kinect One tracking (why did you buy it?):__
-**• Open Kinect Studio v2.0** it can be found in the <:windowskey:845064227633889290> Start Menu by searching for it. Then click Connect in the top-left. Then if needed, Monitor view.
-You'll notice a "fog" on the floor where your feet stop being tracked. This is what we're trying to fix.
-**• Cover your play area floor in __black__ rugs.** This will reduce the amount of infrared light that bounces back to the Kinect sensor.```Be careful! If the entire floor becomes IR absorbing, the Kinect might not be able to detect the floor anymore, and won't be able to calibrate properly!```**• Put a piece of cardboard or sheet on top of the Kinect.** You want to create sort of a cap like this
-""")
-    await ctx.send("https://i.imgur.com/UiX5giS.png")
-    await ctx.send("""
-over the sensor to reduce the overall light that goes into it, so your rugs appear completely invisible to the Kinect. Refer to Kinect Studio's preview to help you.
-**• Enjoy your tracking** and __discourage anyone else from buying Kinect One over the 360 and send them to our server instead.__
-""")
+# @bot.command(brief='How to fix Kinect One FINALLY')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def tracking(ctx):
+#     await ctx.send("""
+# __How to fix your god damn Kinect One tracking (why did you buy it?):__
+# **• Open Kinect Studio v2.0** it can be found in the <:windowskey:845064227633889290> Start Menu by searching for it. Then click Connect in the top-left. Then if needed, Monitor view.
+# You'll notice a "fog" on the floor where your feet stop being tracked. This is what we're trying to fix.
+# **• Cover your play area floor in __black__ rugs.** This will reduce the amount of infrared light that bounces back to the Kinect sensor.```Be careful! If the entire floor becomes IR absorbing, the Kinect might not be able to detect the floor anymore, and won't be able to calibrate properly!```**• Put a piece of cardboard or sheet on top of the Kinect.** You want to create sort of a cap like this
+# """)
+#     await ctx.send("https://i.imgur.com/UiX5giS.png")
+#     await ctx.send("""
+# over the sensor to reduce the overall light that goes into it, so your rugs appear completely invisible to the Kinect. Refer to Kinect Studio's preview to help you.
+# **• Enjoy your tracking** and __discourage anyone else from buying Kinect One over the 360 and send them to our server instead.__
+# """)
 
 # @bot.command(brief='How to set tracker roles')
 # async def roles(ctx):
@@ -994,23 +1035,28 @@ async def optout(ctx):
     await member.remove_roles(role)
     await ctx.send("Opted out of updates.")
 
-@bot.command(brief='Love to hear percussion')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def spin(ctx):
-    await ctx.send("https://imgur.com/TIIiDcS")
-    await ctx.send("This is using Xbox 360 Kinect. The first part has foot rotation set to Use Head Orientation.")
+# @bot.command(brief='Love to hear percussion')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def spin(ctx):
+#     await ctx.send("https://imgur.com/TIIiDcS")
+#     await ctx.send("This is using Xbox 360 Kinect. The first part has foot rotation set to Use Head Orientation.")
 
-@bot.command(brief='turn the beat around')
-@commands.cooldown(1, 3, commands.BucketType.channel)
-async def spin2(ctx):
-    await ctx.send("https://imgur.com/HNDATq8")
-    await ctx.send("This is using Xbox 360 Kinect, you need a big room to do this. Default rotation modes won't turn this smoothly.")
+# @bot.command(brief='turn the beat around')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def spin2(ctx):
+#     await ctx.send("https://imgur.com/HNDATq8")
+#     await ctx.send("This is using Xbox 360 Kinect, you need a big room to do this. Default rotation modes won't turn this smoothly.")
+
+# @bot.command(brief='Love to hear it')
+# @commands.cooldown(1, 3, commands.BucketType.channel)
+# async def spin3(ctx):
+#     await ctx.send("https://imgur.com/ThSjFHD")
+#     await ctx.send("This is using Xbox 360 Kinect.")
 
 @bot.command(brief='Love to hear it')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def spin3(ctx):
-    await ctx.send("https://imgur.com/ThSjFHD")
-    await ctx.send("This is using Xbox 360 Kinect.")
+    await ctx.send("https://imgur.com/NH4ioJR")
 
 @bot.command()
 @commands.cooldown(1, 3, commands.BucketType.channel)
