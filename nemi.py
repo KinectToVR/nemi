@@ -369,7 +369,7 @@ Amazon sellers will dropship batches of these adapters without testing them to a
 
 We recommend buying adapters on Ebay, AliExpress, or locally.
 
-If you don't already have the Kinect and have access to a CEX, you can get it with the adapter for about 18£ and it comes with a 3-year warranty.
+If you don't already have the Kinect and have access to a CEX, you can get it with the adapter for about £10-20 and it comes with a 3-year warranty.
 """)
 
 @bot.command(brief='mirror of amazon')
@@ -382,7 +382,7 @@ Amazon sellers will dropship batches of these adapters without testing them to a
 
 We recommend buying adapters on Ebay, AliExpress, or locally.
 
-If you don't already have the Kinect and have access to a CEX, you can get it with the adapter for about 18£ and it comes with a 3-year warranty.
+If you don't already have the Kinect and have access to a CEX, you can get it with the adapter for about £10-20 and it comes with a 3-year warranty.
 """)
 
 # @bot.command(brief='How to disable USB Selective Suspend')
