@@ -75,7 +75,7 @@ Because the lens adapter causes the dot grid that the Kinect projects, and the I
 async def autocalib(ctx):
     await ctx.send("""
 **If automatic calibration is broken (trackers end up at a weird offset instead of lining up):**
-**1.** Simply try calibrating again, for best results, there should be ample distance between each position you stand in, and you should change height, crouch or squat.
+**1.** Simply try calibrating again, for best results, you should have more space between the different positions you stand in, and you should crouch or squat to change your head level.
 **2.** Try increasing the number of calibration points from the default of 3. Calibration will take longer but has a better chance of succeeding that way.
 **3.** Delete the configuration files from the button in the options tab then try calibrating again.
 **4.** If none of the above works, resort to manual calibration. Don't forget to click out of the SteamVR Dashboard! You won't be able to send inputs to K2EX otherwise.
@@ -247,8 +247,6 @@ async def xbone_loop15(ctx):
 # • You will need a Torx T2 screwdriver or scrwedriver bit.
 # """)
 
-
-
 @bot.command(brief='alias of usbtreeview')
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def utv(ctx):
@@ -271,14 +269,14 @@ You should send us a screenshot so we can take a look at it for you.
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def owotrack(ctx):
     await ctx.send("""
-OwoTrack is another opensource app for using an Android phone or iPhone's compass, accelerometer and gyroscope to emulate the functionality of a waist tracker.
+OwoTrack is an opensource app for using an Android phone or iPhone's compass, accelerometer and gyroscope to emulate a waist tracker.
 It can be used in conjunction with KinectToVR to give you more responsive hip movement.```Some caveats:
-- Sitting down isn't that great unless you strap the phone to your chest instead of your waist.
-- Not all phones are compatible! Check your phone model on GSMArena and look in the "Sensors" section, you need at least a gyroscope and accelerometer. (Cheap budget tier phones have a tendency to forego these for a baked in screen rotation sensor.)
+- Sitting down isn't great unless you strap the phone to your chest instead of your waist.
+- Not all phones are compatible! Check your phone model on GSMArena and look in the "Sensors" section, you need at least a gyroscope and accelerometer. (Cheap phones tend to either have really bad sensors or only a basic screen rotation sensor.)
 - The iOS version isn't on the App Store, you must get it from a TestFlight beta testing link. (Not hard but important to mention)```
 You can get the app over on the Discord here <https://discord.gg/HPuth34e5E>
 
-Once you have that set up and working, you can disable KinectToVR's waist tracker by going to the Trackers tab and clicking "Disable Waist Tracker". You will be asked to restart SteamVR.`
+Once you have it working, you can disable KinectToVR's waist tracker by going to the Trackers tab and clicking "Disable Waist Tracker". You will be asked to restart SteamVR.`
 """)
 
 # @bot.command(brief='How to copy the right driver folder')
@@ -301,15 +299,18 @@ async def thermistor(ctx):
 async def psmove(ctx):
     await ctx.send("""
 **Using PlayStation Move controllers and cameras with KinectToVR:**
-This setup only works with PS Eyes and PSMoveService, you can't track the Move controllers with the Kinect.
+This setup only works with PS Eyes and PSMoveService, you can't track the Move controllers with the Kinect. **The setup is very involved and many parts can randomly break, few people run this and can give support for it. Do at your own risk**
 
 For the setup, you'll want 2 or 3 PS Move controllers (if 2, you need to use OwoTrack for your waist), and at least 3 PS Eye cameras.
+
+You also need a way to pair the controllers with a Bluetooth adapter, and depending on your USB controller situation (See `nemi usb`) you may need an extra PCIe controller card to connect the 3 or 4 PS Eye cameras. You will also need USB extensions for the cameras to reach the corners of your room.
 
 For general setup, we recommend this video by Cai VR: <https://www.youtube.com/watch?v=HQSeSZWSZ58>
 
 Ignore the part about downloading the old version of PSMoveService, and the part about using PSMoveAPI to pair controllers. **You should download the newer fork: PSMoveServiceEX, by Externet, instead.**
 
-Here's a link to that: <https://github.com/Timocop/PSMoveServiceEx>
+Here's a link to it: <https://github.com/Timocop/PSMoveServiceEx>
+*PSMoveServiceEx can technically work with any old webcam, even Kinect with some tinkering, but it's very experimental and I would not depend on it when the cost of the cameras is insignificant in the total cost of the setup.*
 """)
 
 @bot.command(brief='Possibly confusing terms')
@@ -349,9 +350,39 @@ If you must insist on using the motor, Install the developer toolkit (http://dow
 @commands.cooldown(1, 3, commands.BucketType.channel)
 async def amazon(ctx):
     await ctx.send("""
-You can change the angle of the Kinect just by pushing it. The Xbox 360 Kinect does have a motor, but it's not used by K2EX. The gears are solid enough that you can snap it by hand without fear of breaking it.
+**Don't buy Kinect adapters from Amazon!**
+All the clone adapters most likely come from the same factory. The yield rates are low because there's no quality control.
+Amazon sellers will dropship batches of these adapters without testing them to an Amazon warehouse, then those get shipped to you, dead on arrival.
 
-If you must insist on using the motor, Install the developer toolkit (http://download.microsoft.com/download/D/0/6/D061A21C-3AF3-4571-8560-4010E96F0BC8/KinectDeveloperToolkit-v1.8.0-Setup.exe) then run `Kinect Developer Toolkit Browser` from the start menu, in the `tools tab`, __run__ `Kinect Explorer D2D`
+We recommend buying adapters on Ebay, AliExpress, or locally.
+
+If you don't already have the Kinect and have access to a CEX, you can get it with the adapter for about £10-20 and it comes with a 3-year warranty.
+""")
+
+@bot.command(brief='mirror of amazon')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def adapter(ctx):
+    await ctx.send("""
+**Don't buy Kinect adapters from Amazon!**
+All the clone adapters most likely come from the same factory. The yield rates are low because there's no quality control.
+Amazon sellers will dropship batches of these adapters without testing them to an Amazon warehouse, then those get shipped to you, dead on arrival.
+
+We recommend buying adapters on Ebay, AliExpress, or locally.
+
+If you don't already have the Kinect and have access to a CEX, you can get it with the adapter for about 18£ and it comes with a 3-year warranty.
+""")
+
+@bot.command(brief='mirror of amazon')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def adaptor(ctx):
+    await ctx.send("""
+**Don't buy Kinect adapters from Amazon!**
+All the clone adapters most likely come from the same factory. The yield rates are low because there's no quality control.
+Amazon sellers will dropship batches of these adapters without testing them to an Amazon warehouse, then those get shipped to you, dead on arrival.
+
+We recommend buying adapters on Ebay, AliExpress, or locally.
+
+If you don't already have the Kinect and have access to a CEX, you can get it with the adapter for about 18£ and it comes with a 3-year warranty.
 """)
 
 # @bot.command(brief='How to disable USB Selective Suspend')
