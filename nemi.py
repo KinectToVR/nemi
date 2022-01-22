@@ -1091,7 +1091,7 @@ async def optout(ctx):
 
 @bot.command(brief='Love to hear it')
 @commands.cooldown(1, 3, commands.BucketType.channel)
-async def spin3(ctx):
+async def spin(ctx):
     await ctx.send("https://imgur.com/NH4ioJR")
 
 @bot.command()
