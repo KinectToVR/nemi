@@ -1148,4 +1148,20 @@ async def role(ctx, device: str, mention: str):
     user.add_roles(role_object)
     await ctx.send(f"Gave `{device}` to {user.display_name}.")
 
+##
+## AUG HIP COMMANDS
+##
+
+@bot.command(brief='aughip needs tracker roles or your hip will explode')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def trackerroles(ctx):
+     await ctx.send("""
+**Augmented Hip requires that your Tracker Roles are properly set!**
+The tracker assigned to your *Left Foot* should be on your left foot, and, likewise, the tracker assigned to your *Right Foot* should be on your right foot.
+
+**Setting up Vive tracker roles in SteamVR:**
+Go to SteamVR settings > Controllers > Manage Vive Trackers, then find the three trackers lit in green.
+Augmented Hip uses the tracker with ID `AUG_HIP_0`.
+""")
+
 bot.run(token)
