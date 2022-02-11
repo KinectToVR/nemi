@@ -1164,4 +1164,47 @@ Go to SteamVR settings > Controllers > Manage Vive Trackers, then find the three
 Augmented Hip uses the tracker with ID `AUG_HIP_0`.
 """)
 
+@bot.command(brief='aughip vive demo')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def augvive(ctx):
+     await ctx.send("""
+This is what Augmented Hip looks like using 2 Vive/Tundra trackers or 2 Vive wands:
+https://imgur.com/FCtAo08
+""")
+
+@bot.command(brief='aughip kinect demo')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def augvive(ctx):
+     await ctx.send("""
+This is what Augmented Hip looks like when using KinectToVR/K2EX with it's own hip tracker replaced:
+https://imgur.com/6SjSo63
+""")
+
+@bot.command(brief='aughip general info')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def aughip(ctx):
+     await ctx.send("""
+Augmented Hip is an opensource SteamVR driver that uses the positions from feet trackers, *real or emulated,* and your VR headset, to create a virtual hip tracker. You can use it alongside KinectToVR for more responsive hip movement.
+
+**Download and install instructions are over at <https://github.com/hyblocker/augmented-hip>**
+
+Once you've set it up, go to the **"Trackers"** tab of K2EX and click **"Disable Waist Tracker"**. You will be prompted to restart SteamVR.
+The next time you spawn the Kinect trackers, Augmented Hip will start alongside.
+""")
+
+@bot.command(brief='how to turn off aughip')
+@commands.cooldown(1, 3, commands.BucketType.channel)
+async def aughip(ctx):
+     await ctx.send("""
+**How to turn off Augmented Hip and re-enable the KinectToVR hip:**
+• Open SteamVR settings, go to the **Startup/Shutdown** tab then click on **Manage Add-ons**
+• Click the toggle next to Augmented Hip in the list to disable it. You will need to restart SteamVR for changes to take effect.
+
+To re-enable the KinectToVR hip:
+Go to the **"Trackers"** tab of K2EX and click **"Enable Waist Tracker"**. You will be prompted to restart SteamVR.
+
+✨ Pro-tip! ✨
+You can ignore the first restart prompt when disabling the SteamVR add-on, and pile it together with the restart needed by K2EX to save time.
+""")
+
 bot.run(token)
