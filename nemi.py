@@ -1174,7 +1174,7 @@ https://imgur.com/FCtAo08
 
 @bot.command(brief='aughip kinect demo')
 @commands.cooldown(1, 3, commands.BucketType.channel)
-async def augvive(ctx):
+async def augkinect(ctx):
      await ctx.send("""
 This is what Augmented Hip looks like when using KinectToVR/K2EX with it's own hip tracker replaced:
 https://imgur.com/6SjSo63
@@ -1194,7 +1194,7 @@ The next time you spawn the Kinect trackers, Augmented Hip will start alongside.
 
 @bot.command(brief='how to turn off aughip')
 @commands.cooldown(1, 3, commands.BucketType.channel)
-async def aughip(ctx):
+async def augoff(ctx):
      await ctx.send("""
 **How to turn off Augmented Hip and re-enable the KinectToVR hip:**
 • Open SteamVR settings, go to the **Startup/Shutdown** tab then click on **Manage Add-ons**
